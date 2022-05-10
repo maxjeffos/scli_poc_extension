@@ -1,4 +1,4 @@
-module maxjeffos/scli_poc_plugin
+module maxjeffos/scli_poc_extension
 
 go 1.18
 
