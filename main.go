@@ -20,7 +20,7 @@ func main() {
 		panic(err)
 	}
 
-	lang := input.Lang
+	lang := input.Args.Lang
 	fmt.Println("Woof in", lang)
 }
 
@@ -31,6 +31,14 @@ type Input struct {
 ///////////////////////////////////////////////////////////////////////////////
 // The stuff below should go in the extensions library
 ///////////////////////////////////////////////////////////////////////////////
+
+type InputData[T any] struct {
+	// TODO: what standard stuff needs to go here?
+	ProxyPort int `json:"proxyPort"`
+
+	// Extension-specific args
+	Args T `json:"args"`
+}
 
 func GetInputArgs() *Input {
 	var args Input
@@ -64,10 +72,10 @@ func ReadInput() (string, error) {
 	return inputString, nil
 }
 
-func ParseInput[T any](inputString string) (*T, error) {
+func ParseInput[T any](inputString string) (*InputData[T], error) {
 	rawBytes := []byte(inputString)
 
-	var input T
+	var input InputData[T]
 	err := json.Unmarshal(rawBytes, &input)
 	if err != nil {
 		return nil, err
