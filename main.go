@@ -14,6 +14,9 @@ func main() {
 		panic(err)
 	}
 
+	fmt.Println("woof extension")
+	fmt.Printf("input string: '%s'\n", inputString)
+
 	input, err := ParseInput[Input](inputString)
 	if err != nil {
 		fmt.Println("failed parsing input JSON to struct")
@@ -54,7 +57,11 @@ func ReadInput() (string, error) {
 	for {
 		char, _, err := reader.ReadRune()
 		if err != nil {
-			return "", nil
+			// assuming this is EOF, but should probably verify at some point!
+			// TODO: check if this is an EOF
+			// if so, break
+			// if not return "", err
+			break
 		}
 		if char == '\n' {
 			consecutiveNewlinesCount++
@@ -64,6 +71,7 @@ func ReadInput() (string, error) {
 		}
 
 		if consecutiveNewlinesCount == 2 {
+			// fmt.Println("received two consecutive newlines")
 			break
 		}
 	}
