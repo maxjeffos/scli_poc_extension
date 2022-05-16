@@ -6,7 +6,9 @@
     "options": [
         {
             "name": "lang",
-            "type": "string"
+            "shorthand": "l",
+            "type": "string",
+            "usage": "the language you want to show"
         }
     ]
 }
